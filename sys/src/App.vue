@@ -5,9 +5,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
+  computed: {
+    ...mapState(["name"])
+  },
   mounted(){
-    console.log(this.$store.state.name);
+    console.log(this.name);
   }
 }
 </script>

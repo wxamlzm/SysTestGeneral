@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { login } from '../api/login'
 export default {
     data(){
         return{
@@ -38,7 +39,7 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     const datastr = `username=${this.registerData.username}&password=${this.registerData.password}`
-                    this.$axios.post('/user/login', datastr).then(res => {
+                    login(datastr).then(res => {
                         console.log(res.data)
                         this.$message({
                             type: 'success',

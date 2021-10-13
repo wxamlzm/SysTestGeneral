@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import { menu } from '../../api/menu'
+
 export default {
     name: 'HomeAside',
     data(){
@@ -45,7 +47,7 @@ export default {
     },
     methods: {
         async getMenuList(){
-            const {data: res} = await this.$axios.get('/menu')
+            const {data: res} = await menu();
             res.forEach((element,i) => {
                 element = {pic:i, ...element}
                 console.log(element)

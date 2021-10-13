@@ -29,6 +29,7 @@
 <script>
 // @ is an alias to /src
 import HomeAside from './HomeAside.vue'
+
 export default {
   name: 'Home',
   data(){
