@@ -54,7 +54,18 @@ export default {
                 }
             });
         },
-    }
+        sayhi(){
+            console.log('hi',this.$store.state.name)
+        },
+        increment(){
+            this.$store.commit('increment', 5)
+        }
+    },
+    mounted(){
+        this.sayhi();
+        this.increment();
+        console.log(this.$store.state.count)
+    }    
 }
 </script>
 

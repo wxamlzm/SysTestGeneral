@@ -44,10 +44,13 @@ export default {
     logout(){
       sessionStorage.removeItem('elementToken');
       this.$router.push('/login');
+    },
+    sayhi(){
+      console.log('hi',this.$store.name)
     }
   },
-  created(){
-    
+  mounted(){
+    this.sayhi();
   }
 
 }
