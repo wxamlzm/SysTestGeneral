@@ -44,7 +44,7 @@ export default {
                             type: 'success',
                             message: '用户登录成功'
                         })
-                        localStorage.setItem('elementToken', 'Bearer ' + res.data);
+                        sessionStorage.setItem('elementToken', 'Bearer ' + res.data.token);
                         this.$router.push('/home');
                     })
                 } else {
@@ -66,9 +66,9 @@ export default {
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 0 5px #ccc;
-
     h3 {
         text-align: center;
+        margin-bottom: 50px;
     }
     .el-input {
         width: 92%;
@@ -78,6 +78,7 @@ export default {
         button {
             width: 120px;
             margin: 0 auto;
+            margin-top: 50px;        
         }
     }
 }

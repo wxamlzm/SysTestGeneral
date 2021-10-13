@@ -90,6 +90,7 @@ export default {
 
     h3 {
         text-align: center;
+        margin-bottom: 50px;
     }
     .el-input {
         width: 92%;
@@ -99,6 +100,7 @@ export default {
         button {
             width: 120px;
             margin: 0 auto;
+            margin-top: 10px;
         }
     }
 }

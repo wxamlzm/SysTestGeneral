@@ -6,7 +6,7 @@
         <img src="@/assets/logo.png" alt="">
         <span>电商后台管理系统</span>
       </div>
-      <el-button type="info">退出</el-button>
+      <el-button type="info" @click="logout">退出</el-button>
     </el-header>
     <!-- 头部区域结束 -->
 
@@ -40,7 +40,10 @@ export default {
     HomeAside
   },
   methods: {
-
+    logout(){
+      sessionStorage.removeItem('elementToken');
+      this.$router.push('/login');
+    }
   },
   created(){
     

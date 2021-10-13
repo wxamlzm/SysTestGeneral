@@ -66,7 +66,7 @@ router.post('/login', async (req, res) => {
         { expiresIn: '24h' }   // 时间（有效时间？）
     )
 
-    res.send(token)
+    res.send({username,token})
 })
 
 // 验证

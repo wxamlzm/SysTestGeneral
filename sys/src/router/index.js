@@ -43,7 +43,7 @@ const router = new VueRouter({
 
 // 路由守卫
 router.beforeEach((to, from, next) => {
-  const isToken = localStorage.elementToken ? true : false;
+  const isToken = sessionStorage.elementToken ? true : false;
 
   if( to.path == '/login' || to.path == '/register'){
     next();
