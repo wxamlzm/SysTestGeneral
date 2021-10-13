@@ -16,7 +16,8 @@
 </template>
 
 <script>
-import { login } from '../api/login'
+import { mapActions } from 'vuex'
+
 export default {
     data(){
         return{
@@ -35,36 +36,39 @@ export default {
         }
     },
     methods: {
+        ...mapActions(["vlogin"]),
+
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     const datastr = `username=${this.registerData.username}&password=${this.registerData.password}`;
-                    login(datastr).then(res => {
-                        console.log(res.data)
+
+                    this.vlogin(datastr).then( res => {
                         this.$message({
                             type: 'success',
                             message: '用户登录成功'
-                        })
-                        sessionStorage.setItem('elementToken', 'Bearer ' + res.data.token);
+                        });
+                        sessionStorage.setItem('elementToken', 'Bearer ' + res);
                         this.$router.push('/home');
                     })
+                    // login(datastr).then(res => {
+                    //     console.log(res.data)
+                    //     this.$message({
+                    //         type: 'success',
+                    //         message: '用户登录成功'
+                    //     })
+                    //     sessionStorage.setItem('elementToken', 'Bearer ' + res.data.token);
+                    //     this.$router.push('/home');
+                    // })
                 } else {
                     console.log('error submit!!');
                     return false;
                 }
             });
-        },
-        sayhi(){
-            console.log('hi',this.$store.state.name)
-        },
-        increment(){
-            this.$store.commit('increment', 5)
         }
     },
     mounted(){
-        this.sayhi();
-        this.increment();
-        console.log(this.$store.state.count)
+
     }    
 }
 </script>

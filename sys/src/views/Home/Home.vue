@@ -45,14 +45,8 @@ export default {
       sessionStorage.removeItem('elementToken');
       this.$router.push('/login');
     },
-    sayhi(){
-      console.log('hi',this.$store.name)
-    }
-  },
-  mounted(){
-    this.sayhi();
-  }
 
+  }
 }
 </script>
 

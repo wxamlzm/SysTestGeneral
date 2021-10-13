@@ -1,5 +1,7 @@
+import state from "./state"
+
 export default {
-    increment (state, n) {
-        state.count += n
+    setUname(state, username){
+        state.username = username
     }
 }
