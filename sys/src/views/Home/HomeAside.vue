@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { menu } from '../../api/menu'
+import { menu } from '../../api/home'
 
 export default {
     name: 'HomeAside',

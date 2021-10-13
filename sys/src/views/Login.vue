@@ -38,7 +38,7 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    const datastr = `username=${this.registerData.username}&password=${this.registerData.password}`
+                    const datastr = `username=${this.registerData.username}&password=${this.registerData.password}`;
                     login(datastr).then(res => {
                         console.log(res.data)
                         this.$message({
@@ -59,28 +59,28 @@ export default {
 </script>
 
 <style lang="scss">
-.register-box {
-    width: 500px;
-    height: 400px;
-    margin: 100px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 0 5px #ccc;
-    h3 {
-        text-align: center;
-        margin-bottom: 50px;
-    }
-    .el-input {
-        width: 92%;
-    }
-    .input-button {
-        display: flex;
-        button {
-            width: 120px;
-            margin: 0 auto;
-            margin-top: 50px;        
+    .register-box {
+        width: 500px;
+        height: 400px;
+        margin: 100px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 0 5px #ccc;
+        h3 {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .el-input {
+            width: 92%;
+        }
+        .input-button {
+            display: flex;
+            button {
+                width: 120px;
+                margin: 0 auto;
+                margin-top: 50px;        
+            }
         }
     }
-}
 </style>

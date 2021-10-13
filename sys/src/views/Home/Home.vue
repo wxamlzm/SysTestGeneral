@@ -54,36 +54,37 @@ export default {
 </script>
 
 <style lang="scss">
-.el-container {
-  height: 100%;
-  .el-header {
-    background-color: #373D41;
-    display:  flex;
-    justify-content: space-between;
-    align-items: center;
-    div {
-      height: 80%;
-      display: flex;
+  .el-container {
+    height: 100%;
+    min-width: 1000px;
+    .el-header {
+      background-color: #373D41;
+      display:  flex;
+      justify-content: space-between;
       align-items: center;
-      img {
-        height: 100%;
+      div {
+        height: 80%;
+        display: flex;
+        align-items: center;
+        img {
+          height: 100%;
+        }
+        span {
+          margin-left: 15px;
+          vertical-align: middle;
+          color: #FFF;
+          font-size: 20px;
+        }
       }
-      span {
-        margin-left: 15px;
-        vertical-align: middle;
-        color: #FFF;
-        font-size: 20px;
+      .el-button {
+        height: 80%;
       }
     }
-    .el-button {
-      height: 80%;
+    .el-aside {
+      background-color: #373D41;
+    }
+    .el-main {
+      background-color: #EAEDF1;
     }
   }
-  .el-aside {
-    background-color: #373D41;
-  }
-  .el-main {
-    background-color: #EAEDF1;
-  }
-}
 </style>
