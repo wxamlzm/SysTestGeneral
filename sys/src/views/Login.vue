@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { login } from "../api/login"
+import { login } from "../api/user.js"
 
 export default {
     data(){
@@ -36,7 +36,6 @@ export default {
         }
     },
     methods: {
-
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
