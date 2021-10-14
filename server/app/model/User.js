@@ -1,9 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const { Schema, model } = mongoose
-const connection = require("../config/loginDB")
-// const Schema = mongoose.Schema
-// const model = mongoose.model
+const connection = require("../config/userDB.js")
 
 const UserSchema = new Schema({
     username: { type: String, require: true },
@@ -18,6 +16,6 @@ const UserSchema = new Schema({
     isAdmin: { type: String, default: '0' } // 身份 1-> 管理员 ， 0-> 普通用户
 })
 
-const User = connection.model('User', UserSchema)
+const User = connection.model('UserList', UserSchema)
 
 module.exports = User
