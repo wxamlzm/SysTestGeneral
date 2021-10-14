@@ -9,6 +9,7 @@
             unique-opened
             :collapse="iscollapse"
             :collapse-transition="false"
+            :default-active="selected"
             router>
             <!-- 一级菜单 -->
             <!-- 为什么一级菜单不会受router影响 -->
@@ -42,7 +43,7 @@ export default {
         return {
             menuList: [],
             subMenuList: {},
-            iscollapse: false
+            iscollapse: false,
         }
     },
     methods: {
@@ -61,8 +62,14 @@ export default {
             this.iscollapse = !this.iscollapse
         }
     },
+    computed:{
+        selected(){
+            return this.$route.path
+        }
+    },
     mounted(){
         this.getMenuList();
+
     }
 }
 </script>

@@ -16,7 +16,9 @@ const routes = [
     redirect: '/welcome',
     children: [
       { path: '/welcome', component: () => import(/* webpackChunkName: "welcome" */ "../components/Welcome") },
-      { path: '/userslist', component: () => import(/* webpackChunkName: "userlist" */ "../components/UsersList") }
+      { path: '/userslist', component: () => import(/* webpackChunkName: "userlist" */ "../components/User/UsersList") },
+      { path: '/goodsadd', component: () => import(/* webpackChunkName: "goodsadd" */ "../components/Goods/GoodsAdd") },
+      { path: '/goodscount', component: () => import(/* webpackChunkName: "goodscount" */ "../components/Goods/GoodsCount") },
 
     ]
   },
