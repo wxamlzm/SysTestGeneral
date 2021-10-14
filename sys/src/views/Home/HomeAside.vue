@@ -69,7 +69,6 @@ export default {
     },
     mounted(){
         this.getMenuList();
-
     }
 }
 </script>
