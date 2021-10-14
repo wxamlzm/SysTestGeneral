@@ -7,8 +7,8 @@ const http = axios.create({
 
 // 请求拦截
 http.interceptors.request.use( config => {
-    if(localStorage.elementToken){
-        config.headers.Authorization = localStorage.elementToken;
+    if(sessionStorage.elementToken){
+        config.headers.Authorization = sessionStorage.elementToken;
     }
     return config
 })

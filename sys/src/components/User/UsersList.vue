@@ -29,8 +29,14 @@
 </template>
 
 <script>
+import { getUsers } from "@/api/user.js"
+
 export default {
-    name: 'userslist'
+    name: 'userslist',
+    mounted(){
+        console.log('hi,userlist')
+        getUsers().then( res => console.log(res))
+    }
 }
 </script>
 

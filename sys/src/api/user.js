@@ -1,7 +1,7 @@
 import axios from '../utils/axios'
 
-export function getUsers(params){
-    return axios.get('/user', params)
+export function getUsers(){
+    return axios.get('/user')
 }
 
 export function login(params) {
