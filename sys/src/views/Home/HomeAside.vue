@@ -51,11 +51,8 @@ export default {
             const {data: res} = await menu();
             res.forEach((element,i) => {
                 element = {pic:i, ...element}
-                console.log(element)
                 this.menuList.push(element)
             });
-
-            console.log(this.menuList)
         },
         // 点击按钮实现菜单的折叠与展开
         toggleCollapse(){

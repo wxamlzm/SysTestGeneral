@@ -17,8 +17,8 @@ http.interceptors.request.use( config => {
 http.interceptors.response.use( res => {
     return res
 }, err => {
-    console.log(err.response)
-    Message.error(err.response.data)
+    console.log(err.response);
+    Message.error(err.response.data);
 })
 
 export default http

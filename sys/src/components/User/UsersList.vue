@@ -21,7 +21,11 @@
                     <el-button type="primary">添加用户</el-button>
                 </el-col>
             </el-row>
-
+            <el-table :data="list" style="width: 100%">
+                <el-table-column type="index" label="序号" width="120"></el-table-column>
+                <el-table-column prop="username" label="账号" width="100"></el-table-column>
+                <el-table-column prop="name" label="用户名"></el-table-column>
+            </el-table>
             <!-- 搜索区域结束 -->
         </el-card>
         <!-- 卡片视图结束 -->
@@ -33,9 +37,13 @@ import { getUsers } from "@/api/user.js"
 
 export default {
     name: 'userslist',
+    data() {
+        return {
+            list: []
+        }
+    },
     mounted(){
-        console.log('hi,userlist')
-        getUsers().then( res => console.log(res))
+        getUsers().then( res => this.list = res.data)
     }
 }
 </script>
