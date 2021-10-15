@@ -21,12 +21,46 @@
                     <el-button type="primary">添加用户</el-button>
                 </el-col>
             </el-row>
-            <el-table :data="list" style="width: 100%">
-                <el-table-column type="index" label="序号" width="120"></el-table-column>
-                <el-table-column prop="username" label="账号" width="100"></el-table-column>
-                <el-table-column prop="name" label="用户名"></el-table-column>
+            <el-table :data="showList" style="width: 100%" border>
+                <el-table-column type="index" label="序号" width="120" align="center"></el-table-column>
+                <el-table-column prop="username" label="账号" width="100" align="center"></el-table-column>
+                <el-table-column prop="name" label="用户名" align="center"></el-table-column>
+                <el-table-column prop="role" label="是否管理员" align="center">
+                    <template slot-scope="scope">
+                        <el-switch
+                            v-model="scope.row.isAdmin"
+                            active-color="#13ce66"
+                            inactive-color="#ff4949"
+                            @change = "userStateChanged">
+                        </el-switch>
+                    </template>
+                </el-table-column>
+                <el-table-column label="操作" align="center">
+                    <template slot-scope="scope">
+                        <!-- 修改 -->
+                        <el-button type="primary" icon="el-icon-edit" size="mini"></el-button>
+                        <!-- 分配角色 -->
+                        <el-tooltip effect="dark" content="分配角色" placement="top-start" :enterable="false">
+                            <el-button type="warning" icon="el-icon-star-off" size="mini"></el-button>
+                        </el-tooltip>
+                        
+                        <!-- 删除 -->
+                        <el-button type="danger" icon="el-icon-delete" size="mini"></el-button>
+
+                    </template>
+                </el-table-column>
             </el-table>
             <!-- 搜索区域结束 -->
+            <!-- 分页区域开始 -->
+            <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="currentPage"
+                :page-sizes="pageSizes"
+                :page-size="pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="list.length">
+            </el-pagination>
         </el-card>
         <!-- 卡片视图结束 -->
     </div>
@@ -39,11 +73,45 @@ export default {
     name: 'userslist',
     data() {
         return {
-            list: []
+            list: [],
+            showList: [],
+            pageSizes: [5, 10],
+            pageSize: 5,
+            currentPage: 1
+        }
+    },
+    methods:{
+        handleSizeChange(newSize){
+            this.pageSize = newSize;
+            this.toShowList(this.currentPage, this.pageSize);
+        },
+        handleCurrentChange(newPage){
+            this.currentPage = newPage;
+            this.toShowList(this.currentPage, this.pageSize);
+        },
+        toShowList(currentPage, pageSize){
+            currentPage = parseInt(currentPage);
+            let start = (currentPage - 1) * pageSize;
+            let end = currentPage * pageSize;
+            this.showList = this.list.slice(start, end)
+        },
+        userStateChanged(){
+
         }
     },
     mounted(){
-        getUsers().then( res => this.list = res.data)
+        getUsers().then( res => {
+            // // 调整接收的数据结构以用于渲染
+            let data = res.data;
+            data.forEach((element, n) => {
+                element.isAdmin = parseInt(element.isAdmin) ? true : false;
+                element._id = n + 1;
+                this.list.push(element);
+            });
+            this.list = res.data;
+            this.currentPage =  1;
+            this.toShowList(this.currentPage, this.pageSize);
+        })
     }
 }
 </script>
@@ -56,6 +124,14 @@ export default {
     }
     .el-card {
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    }
+    .el-table {
+        margin-top: 20px;
+    }
+    .el-pagination {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 }
 </style>

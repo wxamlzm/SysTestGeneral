@@ -53,7 +53,7 @@ export default {
 <style lang="scss">
   .el-container {
     height: 100%;
-    min-width: 1000px;
+    min-width: 1100px;
     .el-header {
       background-color: #373D41;
       display:  flex;
@@ -82,6 +82,7 @@ export default {
     }
     .el-main {
       background-color: #EAEDF1;
+      overflow: scroll;
     }
   }
 </style>
