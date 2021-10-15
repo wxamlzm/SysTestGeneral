@@ -36,7 +36,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column label="操作" align="center">
-                    <template slot-scope="scope">
+                    <template>
                         <!-- 修改 -->
                         <el-button type="primary" icon="el-icon-edit" size="mini"></el-button>
                         <!-- 分配角色 -->
