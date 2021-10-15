@@ -13,8 +13,8 @@
             <!-- 搜索区域开始 -->
             <el-row :gutter="20">
                 <el-col :span="7">
-                    <el-input placeholder="请输入内容">
-                        <el-button slot="append" icon="el-icon-search"></el-button>
+                    <el-input placeholder="请输入内容" v-model="query">
+                        <el-button slot="append" icon="el-icon-search" @click="getUserList"></el-button>
                     </el-input>
                 </el-col>
                 <el-col :span="4">
@@ -67,12 +67,13 @@
 </template>
 
 <script>
-import { getUsers } from "@/api/user.js"
+import { getUsers, searchUser } from "@/api/user.js"
 
 export default {
     name: 'userslist',
     data() {
         return {
+            query:'',
             list: [],
             showList: [],
             pageSizes: [5, 10],
@@ -97,6 +98,21 @@ export default {
         },
         userStateChanged(){
 
+        },
+        getUserList(){
+            const params = {
+                params: {username: this.query}
+            };
+            searchUser(params).then( res => {
+                let list = [];
+                console.log(res);
+                res.data.forEach(el => {
+                    el.isAdmin = parseInt(el.isAdmin) ? true : false;
+                    list.push(el);
+                })
+                console.log(list)
+                this.showList = list;
+            })
         }
     },
     mounted(){

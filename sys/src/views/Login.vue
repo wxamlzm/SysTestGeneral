@@ -40,9 +40,9 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     const datastr = `username=${this.registerData.username}&password=${this.registerData.password}`;
+                    console.log(this.registerData)
 
                     login(datastr).then(res => {
-                        console.log(res.data)
                         this.$message({
                             type: 'success',
                             message: '用户登录成功'

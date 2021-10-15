@@ -36,6 +36,12 @@ router.get('/', isAdmin, async (req, res) => {
     res.send(list)
 })
 
+// 搜索获取用户列表
+router.get('/search', isAdmin, async (req, res) => {
+    const list = await User.find({username: req.query.username})
+    res.send(list)
+})
+
 // 注册
 router.post('/register', async (req, res) => { 
     const user = await User.findOne({username: req.body.username})
@@ -43,7 +49,6 @@ router.post('/register', async (req, res) => {
     if(user){ return res.status(409).send('该用户已存在') }
 
     const newUser = await new User(req.body).save()
-    // console.log(newUser)
     res.send(newUser)
 })
 
