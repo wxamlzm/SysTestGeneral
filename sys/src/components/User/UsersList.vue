@@ -13,8 +13,8 @@
             <!-- 搜索区域开始 -->
             <el-row :gutter="20">
                 <el-col :span="7">
-                    <el-input placeholder="请输入内容" v-model="query">
-                        <el-button slot="append" icon="el-icon-search" @click="getUserList"></el-button>
+                    <el-input placeholder="请输入内容" v-model="query"  @input="debounce(getUserList, 2000)()">
+                        <el-button slot="append" icon="el-icon-search"></el-button>
                     </el-input>
                 </el-col>
                 <el-col :span="4">
@@ -30,8 +30,7 @@
                         <el-switch
                             v-model="scope.row.isAdmin"
                             active-color="#13ce66"
-                            inactive-color="#ff4949"
-                            @change = "userStateChanged">
+                            inactive-color="#ff4949">
                         </el-switch>
                     </template>
                 </el-table-column>
@@ -96,8 +95,22 @@ export default {
             let end = currentPage * pageSize;
             this.showList = this.list.slice(start, end)
         },
-        userStateChanged(){
+        debounce(fn, delay){
+            console.log('debounce')
+            // 注册定时器
+            let timer;
+            // 抛出带有定时器的回调
+            return () => {
+            // 如果检测到定时器存在，则清除
+                if(timer){
+                    clearTimeout(timer);
+                }
 
+                // 重新包裹定时器
+                timer = setTimeout( () => {
+                    fn();
+                }, delay)
+            }
         },
         getUserList(){
             const params = {
@@ -113,7 +126,8 @@ export default {
                 console.log(list)
                 this.showList = list;
             })
-        }
+        },
+
     },
     mounted(){
         getUsers().then( res => {
