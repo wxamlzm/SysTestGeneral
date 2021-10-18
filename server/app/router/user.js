@@ -38,6 +38,7 @@ router.get('/', isAdmin, async (req, res) => {
 
 // 搜索获取用户列表
 router.get('/search', isAdmin, async (req, res) => {
+    console.log(req.query)
     let list = await User.find();
     if(!req.query.username){ return res.send(list)};
 

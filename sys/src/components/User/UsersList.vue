@@ -13,7 +13,7 @@
             <!-- 搜索区域开始 -->
             <el-row :gutter="20">
                 <el-col :span="7">
-                    <el-input placeholder="请输入内容" v-model="query"  @input="debounce(getUserList, 2000)()">
+                    <el-input placeholder="请输入内容" v-model="queryinfo"  @input="debounce(getUserList, 2000)()">
                         <el-button slot="append" icon="el-icon-search"></el-button>
                     </el-input>
                 </el-col>
@@ -66,18 +66,19 @@
 </template>
 
 <script>
-import { getUsers, searchUser } from "@/api/user.js"
+import { getUsers } from "@/api/user.js"
 
 export default {
     name: 'userslist',
     data() {
         return {
-            query:'',
-            list: [],
+            queryinfo:'',
+            list:[],
             showList: [],
             pageSizes: [5, 10],
             pageSize: 5,
-            currentPage: 1
+            currentPage: 1,
+            timer: null
         }
     },
     methods:{
@@ -89,6 +90,25 @@ export default {
             this.currentPage = newPage;
             this.toShowList(this.currentPage, this.pageSize);
         },
+        // 通过封装接口，发送请求，获取指定条件的数据
+        getUserList(){
+            const params = {
+                params:{username: this.queryinfo}
+            }
+            getUsers(params).then( res => {
+                // 处理数据
+                let list = [];
+                res.data.forEach( el => {
+                    el.isAdmin = parseInt(el.isAdmin) ? true : false;
+                    list.push(el);
+                });
+                this.list = list;
+                console.log(this.list);
+                // 渲染分页数据
+                this.toShowList(this.currentPage, this.pageSize, this.list)
+            });
+        },
+        // 对后端获取的数据进行处理，并按业务需求渲染
         toShowList(currentPage, pageSize){
             currentPage = parseInt(currentPage);
             let start = (currentPage - 1) * pageSize;
@@ -96,54 +116,22 @@ export default {
             this.showList = this.list.slice(start, end)
         },
         debounce(fn, delay){
-            console.log('debounce')
-            // 注册定时器
-            let timer;
-            // 抛出带有定时器的回调
-            return () => {
-            // 如果检测到定时器存在，则清除
-                console.log(timer)
-                if(timer){
-                    console.log('cleartimer')
-                    clearTimeout(timer);
+            return (...args) => {
+                console.log(this.timer);
+                // 判断定时器是否存在，清除定时器
+                if(this.timer) {
+                    clearTimeout(this.timer);
                 }
 
-                // 重新包裹定时器
-                timer = setTimeout( () => {
-                    fn();
-                }, delay)
+                // 重新调用setTimeout
+                this.timer = setTimeout(()=>{
+                    fn.apply(this, args);
+                }, delay);
             }
-        },
-        getUserList(){
-            const params = {
-                params: {username: this.query}
-            };
-            searchUser(params).then( res => {
-                let list = [];
-                console.log(res);
-                res.data.forEach(el => {
-                    el.isAdmin = parseInt(el.isAdmin) ? true : false;
-                    list.push(el);
-                })
-                console.log(list)
-                this.showList = list;
-            })
-        },
-
+        }
     },
     mounted(){
-        getUsers().then( res => {
-            // // 调整接收的数据结构以用于渲染
-            let data = res.data;
-            data.forEach((element, n) => {
-                element.isAdmin = parseInt(element.isAdmin) ? true : false;
-                element._id = n + 1;
-                this.list.push(element);
-            });
-            this.list = res.data;
-            this.currentPage =  1;
-            this.toShowList(this.currentPage, this.pageSize);
-        })
+        this.getUserList();
     }
 }
 </script>
