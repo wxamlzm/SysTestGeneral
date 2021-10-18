@@ -38,8 +38,17 @@ router.get('/', isAdmin, async (req, res) => {
 
 // 搜索获取用户列表
 router.get('/search', isAdmin, async (req, res) => {
-    console.log(req.query);
-    const list = await User.find({username: req.query.username})
+    let list = await User.find();
+    if(!req.query.username){ return res.send(list)};
+
+    const keyWords = req.query.username;
+    const reg = new RegExp(keyWords, 'i');
+    // 正则匹配模糊查询
+    list = await User.find({
+        $or: [
+            { username: {$regex: reg}}
+        ]
+    });
     res.send(list)
 })
 
