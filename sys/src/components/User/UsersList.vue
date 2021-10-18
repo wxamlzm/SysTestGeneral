@@ -102,7 +102,9 @@ export default {
             // 抛出带有定时器的回调
             return () => {
             // 如果检测到定时器存在，则清除
+                console.log(timer)
                 if(timer){
+                    console.log('cleartimer')
                     clearTimeout(timer);
                 }
 
