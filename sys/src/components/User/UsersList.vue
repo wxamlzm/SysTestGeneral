@@ -13,7 +13,7 @@
             <!-- 搜索区域开始 -->
             <el-row :gutter="20">
                 <el-col :span="7">
-                    <el-input placeholder="请输入内容" v-model="queryinfo"  @input="debounce(getUserList, 2000)()">
+                    <el-input placeholder="请输入内容" v-model="queryinfo"  @input="handleInputChange">
                         <el-button slot="append" icon="el-icon-search"></el-button>
                     </el-input>
                 </el-col>
@@ -78,7 +78,7 @@ export default {
             pageSizes: [5, 10],
             pageSize: 5,
             currentPage: 1,
-            timer: null
+            handleInputChange: this.debounce(this.getUserList, 2000)
         }
     },
     methods:{
@@ -116,15 +116,16 @@ export default {
             this.showList = this.list.slice(start, end)
         },
         debounce(fn, delay){
+            let timer;
             return (...args) => {
-                console.log(this.timer);
+                console.log(timer);
                 // 判断定时器是否存在，清除定时器
-                if(this.timer) {
-                    clearTimeout(this.timer);
+                if(timer) {
+                    clearTimeout(timer);
                 }
 
                 // 重新调用setTimeout
-                this.timer = setTimeout(()=>{
+                timer = setTimeout(()=>{
                     fn.apply(this, args);
                 }, delay);
             }
@@ -132,6 +133,9 @@ export default {
     },
     mounted(){
         this.getUserList();
+    },
+    beforeDestory(){
+        this.handleInputChange = null;
     }
 }
 </script>
