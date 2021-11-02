@@ -7,6 +7,8 @@ const http = axios.create({
 
 // 请求拦截
 http.interceptors.request.use( config => {
+    // 登录是否失效
+    // 验证登录是否失效
     if(sessionStorage.elementToken){
         config.headers.Authorization = sessionStorage.elementToken;
     }

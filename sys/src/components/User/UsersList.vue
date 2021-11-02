@@ -62,6 +62,19 @@
             </el-pagination>
         </el-card>
         <!-- 卡片视图结束 -->
+
+        <!-- 对话框 -->
+        <el-dialog
+        title="提示"
+        :visible.sync="dialogVisible"
+        width="30%"
+        :before-close="handleClose">
+            <span>这是一段信息</span>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -78,7 +91,8 @@ export default {
             pageSizes: [5, 10],
             pageSize: 5,
             currentPage: 1,
-            handleInputChange: this.debounce(this.getUserList, 2000)
+            handleInputChange: this.debounce(this.getUserList, 2000),
+            dialogVisible: true
         }
     },
     methods:{
